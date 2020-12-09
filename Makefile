@@ -17,3 +17,15 @@ build-docker-consumer:
 
 .PHONY: build-docker
 build-docker: build-docker-producer build-docker-consumer
+
+
+.PHONY: load-images
+load-images:
+	kind load docker-image $(PRODUCER_IMAGE_ID):$(PRODUCER_IMAGE_TAG)
+	kind load docker-image $(CONSUMER_IMAGE_ID):$(CONSUMER_IMAGE_TAG)
+
+
+.PHONY: deploy
+deploy: build-docker load-images
+	kubectl create -f deployment/producer-deployment.yaml
+	kubectl create -f deployment/consumer-deployment.yaml
