@@ -18,10 +18,10 @@ func newKafkaWriter(kafkaURL, topic string) *kafka.Writer {
 	}
 }
 
-func produce(w *kafka.Writer) {
+func produce(w *kafka.Writer, prefix string) {
 	for i := 0; ; i++ {
 		msg := kafka.Message{
-			Key:   []byte(fmt.Sprintf("key-%d", i)),
+			Key:   []byte(fmt.Sprintf("%s-key-%d", prefix, i)),
 			Value: []byte(fmt.Sprintf("%s", uuid.New())),
 		}
 
@@ -37,9 +37,10 @@ func produce(w *kafka.Writer) {
 func main() {
 	kafkaURL := os.Getenv("kafkaURL")
 	topic := os.Getenv("topic")
+	prefix := os.Getenv("prefix")
 
 	writer := newKafkaWriter(kafkaURL, topic)
 	defer writer.Close()
 
-	produce(writer)
+	produce(writer, prefix)
 }
