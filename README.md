@@ -2,7 +2,9 @@
 
 Small example of producer/consumer using [kafka-go](https://github.com/segmentio/kafka-go) library on local kubernetes cluster
 
-![#](.docs/flow.svg)
+<p align="center">
+  <img width="460" height="300" src=".docs/flow.svg">
+</p>
 
 ## Setup
 
