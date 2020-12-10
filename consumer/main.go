@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -28,7 +27,7 @@ func consume(r *kafka.Reader) {
 			log.Fatal(err)
 		}
 
-		fmt.Printf(
+		log.Printf(
 			"message at topic:%v partition:%v offset:%v	%s = %s\n",
 			m.Topic,
 			m.Partition,
@@ -44,7 +43,7 @@ func main() {
 	groupID := os.Getenv("groupID")
 	topic := os.Getenv("topic")
 
-	reader := getKafkaReader(kafkaURL, groupID, topic)
+	reader := getKafkaReader(kafkaURL, topic, groupID)
 	defer reader.Close()
 
 	consume(reader)

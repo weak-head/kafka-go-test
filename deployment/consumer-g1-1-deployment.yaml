@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-g1-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-g1-1
+  template:
+    metadata:
+      labels:
+        app: consumer-g1-1
+    spec:
+      containers:
+      - name: consumer-g1-1
+        image: github.com/weak-head/go-kafka-test/consumer:0.0.1
+        env:
+        - name: kafkaURL
+          value: "kafka.kafka.svc.cluster.local:9092"
+        - name: topic
+          value: "zeus"
+        - name: groupID
+          value: "logger-group"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

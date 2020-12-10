@@ -27,5 +27,17 @@ load-images:
 
 .PHONY: deploy
 deploy: build-docker load-images
-	kubectl create -f deployment/producer-deployment.yaml
-	kubectl create -f deployment/consumer-deployment.yaml
+	kubectl create -f deployment/producer-p1-deployment.yaml
+	kubectl create -f deployment/producer-p2-deployment.yaml
+	kubectl create -f deployment/consumer-g1-1-deployment.yaml
+	kubectl create -f deployment/consumer-g1-2-deployment.yaml
+	kubectl create -f deployment/consumer-g2-1-deployment.yaml
+
+
+.PHONY: clean
+clean:
+	kubectl delete -f deployment/producer-p1-deployment.yaml
+	kubectl delete -f deployment/producer-p2-deployment.yaml
+	kubectl delete -f deployment/consumer-g1-1-deployment.yaml
+	kubectl delete -f deployment/consumer-g1-2-deployment.yaml
+	kubectl delete -f deployment/consumer-g2-1-deployment.yaml
